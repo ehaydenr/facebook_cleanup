@@ -10,10 +10,7 @@ app.controller("mainpage", function ($scope) {
             console.log("Running??");
             p_data = new_posts.data[i];
             console.log(p_data);
-            $scope.posts.push({
-                message :       p_data.message,
-                updated_time :  p_data.updated_time
-            });
+            $scope.posts.push(p_data);
         }
     }
     $scope.post_populate_trigger = function(){
@@ -27,6 +24,20 @@ app.controller("mainpage", function ($scope) {
                 $scope.populate_posts(response);
             });
         });
+    }
+    $scope.delete_post = function(id){
+        console.log(id);
+        console.log("Deleting Post");
+        FB.api(
+                "/" + id,
+                "DELETE",
+                function (response) {
+                    console.log(response);
+                    if (response && !response.error) {
+                        /* handle the result */
+                    }
+                }
+              );
     }
 
 });

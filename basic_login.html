@@ -14,14 +14,17 @@
         the FB.login() function when clicked.
         -->
 
-        <fb:login-button scope="public_profile,email,read_stream,publish_actions" onlogin="checkLoginState();">
+        <fb:login-button scope="public_profile,email,read_stream,publish_actions,user_status" onlogin="checkLoginState();">
         </fb:login-button>
 
         <div id="status">
         </div>
         <button data-ng-click="post_populate_trigger()">populate</button>
         <ul>
-            <li data-ng-repeat="post in posts">{{ post.message }}</li>
+            <li data-ng-repeat="post in posts">
+                {{ post.message }} ->  
+                <button data-ng-click="delete_post(post.id)">Delete</button>
+            </li>
         </ul>
 
     </body>
