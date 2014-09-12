@@ -17,6 +17,8 @@
                 if (response.status === 'connected') {
                     // Logged into your app and Facebook.
                     testAPI();
+                    console.log("Going to call getPosts()");
+                    getPosts();
                     } else if (response.status === 'not_authorized') {
                     // The person is logged into Facebook, but not your app.
                     document.getElementById('status').innerHTML = 'Please log ' +
@@ -85,6 +87,12 @@
                     'Thanks for logging in, ' + response.name + '!';
                 });
             }
+            function getPosts() {
+                console.log('Grabbing Posts');
+                FB.api('/me/statuses', function(response) {
+                    console.log(response);
+                });
+            }
         </script>
 
         <!--
@@ -93,7 +101,7 @@
         the FB.login() function when clicked.
         -->
 
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        <fb:login-button scope="public_profile,email,read_stream" onlogin="checkLoginState();">
         </fb:login-button>
 
         <div id="status">
