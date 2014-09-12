@@ -2,6 +2,7 @@ var app = angular.module('facebook_cleanup', []);
 
 app.controller("mainpage", function ($scope) {
     $scope.posts = [];
+    $scope.offset = 0;
     $scope.populate_posts = function (new_posts){
         console.log("New Posts");
         console.log(new_posts);
@@ -17,9 +18,14 @@ app.controller("mainpage", function ($scope) {
     }
     $scope.post_populate_trigger = function(){
         console.log("Populated Called");
-        FB.api('/me/statuses', function(response) {
+        var url = '/me/statuses?limit=100&offset=' + $scope.offset;
+        console.log(url);
+        FB.api(url, function(response) {
             console.log(response);
-            $scope.$apply(function (){$scope.populate_posts(response);});
+            $scope.offset += 100;
+            $scope.$apply(function (){
+                $scope.populate_posts(response);
+            });
         });
     }
 
